@@ -62,8 +62,27 @@ export default (props: IMasterLayoutProps) => {
             {!!props.username && <div className='mbb-menu'>
                 <Menu size='massive' inverted secondary vertical fluid>
                     <Menu.Item>
-                        <Menu.Header><span className='mbb-menu-header1'>Help</span><span className='mbb-menu-header2'>____</span></Menu.Header>
+                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 1</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#1</span></Menu.Header>
                         {menuElements}
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 2</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#2</span></Menu.Header>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 3</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#3</span></Menu.Header>
+                        <Menu.Menu>
+                            <Menu.Item link onClick={() => location.href = '/module3/item1'}><span className='mbb-menu-item1'><Icon name='weibo'/>Item 1</span><span className='mbb-menu-item2'><Popup trigger={<Icon name='weibo'/>} content='Item1' position='right center' inverted/></span></Menu.Item>
+                            <Menu.Item link onClick={() => location.href = '/module3/item2'}><span className='mbb-menu-item1'><Icon name='whatsapp'/>Item 2</span><span className='mbb-menu-item2'><Popup trigger={<Icon name='whatsapp'/>} content='Item2' position='right center' inverted/></span></Menu.Item>
+                        </Menu.Menu>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 4</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#4</span></Menu.Header>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 5</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#5</span></Menu.Header>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 6</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#6</span></Menu.Header>
                     </Menu.Item>
                 </Menu>
             </div>}
