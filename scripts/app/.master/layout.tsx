@@ -4,24 +4,29 @@ import { Image, Container, Menu, Divider, Grid, Form, Table, Checkbox, Button, I
 
 import * as auth from '../../common/auth';
 
-import Home from "../other/home";
-import HomeHeader from "../other/home/header";
-import Profile from "../other/profile";
-import ProfileHeader from "../other/profile/header";
-
-import Document from "../help/document";
-import DocumentHeader from "../help/document/header";
-import About from "../help/about";
-import AboutHeader from "../help/about/header";
+import HomeHeader from "../home/header";
+import HomeContent from "../home/content";
+import ProfileHeader from "../profile/header";
+import ProfileContent from "../profile/content";
 
 export interface IMasterLayoutProps {
     collapsed?: boolean;
     toggle: () => void;
     username?: string;
+    children?: React.ReactNode | React.ReactNode[];
 }
 
-export default (props: IMasterLayoutProps) => (
-    <div className={(typeof(props.collapsed) === 'undefined' || props.collapsed === null || !props.collapsed) ? 'mbb-menu-expand' : 'mbb-menu-collapse'}>
+export const MasterLayoutMenu = (props: {} | { children?: React.ReactNode }) => (props as any).children;
+export const MasterLayoutHeader = (props: {} | { children?: React.ReactNode }) => (props as any).children;
+export const MasterLayoutContent = (props: {} | { children?: React.ReactNode }) => (props as any).children;
+
+export default (props: IMasterLayoutProps) => {
+    const elements: React.ReactNode[] = typeof(props.children) === 'undefined' ? [] : Array.isArray(props.children) ? props.children : [props.children];
+    const menuElements = elements.filter((e: React.ReactElement<any>) => e.type === MasterLayoutMenu);
+    const headerElements = elements.filter((e: React.ReactElement<any>) => e.type === MasterLayoutHeader);
+    const contentElements = elements.filter((e: React.ReactElement<any>) => e.type === MasterLayoutContent);
+
+    return <div className={(typeof(props.collapsed) === 'undefined' || props.collapsed === null || !props.collapsed) ? 'mbb-menu-expand' : 'mbb-menu-collapse'}>
         <header className='mbb-table mbb-header'>
             {!!props.username && <div className='mbb-cell mbb-brand'>
                 <div className='mbb-table'>
@@ -33,12 +38,9 @@ export default (props: IMasterLayoutProps) => (
                 <Menu size='huge' secondary>
                     <Menu.Item>
                         {!props.username && (<span>MicroApp<sup>&reg;</sup> PoC</span>)}
-
-                        {!!props.username && (<Route path='/document' component={DocumentHeader} />)}
-                        {!!props.username && (<Route path='/about' component={AboutHeader} />)}
-
                         {!!props.username && (<Route path='/' exact component={HomeHeader} />)}
                         {!!props.username && (<Route path='/profile' component={ProfileHeader} />)}
+                        {!!props.username && (headerElements)}
                     </Menu.Item>
                     <Menu.Menu position='right'>
                         <Dropdown item trigger={!!props.username ? (<span> <Icon name='user'/>Hi, {props.username}</span>) : (<span><Icon size='large' name='user circle'/>Login</span>)}>
@@ -61,24 +63,18 @@ export default (props: IMasterLayoutProps) => (
                 <Menu size='massive' inverted secondary vertical fluid>
                     <Menu.Item>
                         <Menu.Header><span className='mbb-menu-header1'>Help</span><span className='mbb-menu-header2'>____</span></Menu.Header>
-                        <Menu.Menu>
-                            <Menu.Item as={NavLink} to='/document' name='document'><span className='mbb-menu-item1'><Icon name='help circle'/>Document</span><span className='mbb-menu-item2'><Popup trigger={<Icon name='help circle'/>} content='Document' position='right center' inverted/></span></Menu.Item>
-                            <Menu.Item as={NavLink} to='/about' name='about'><span className='mbb-menu-item1'><Icon name='info'/>About</span><span className='mbb-menu-item2'><Popup trigger={<Icon name='info'/>} content='About' position='right center' inverted/></span></Menu.Item>
-                            <Menu.Item as={NavLink} to='/' exact name='home'><span className='mbb-menu-item1'><Icon name='home'/>Home</span><span className='mbb-menu-item2'><Popup trigger={<Icon name='home'/>} content='Home' position='right center' inverted/></span></Menu.Item>
-                        </Menu.Menu>
+                        {menuElements}
                     </Menu.Item>
                 </Menu>
             </div>}
             {!!props.username && <div className='mbb-content'>
-                <Route path='/document' component={Document} />
-                <Route path='/about' component={About} />
-
-                <Route exact path='/' component={Home} />
-                <Route path='/profile' component={Profile} />
+                <Route exact path='/' component={HomeContent} />
+                <Route path='/profile' component={ProfileContent} />
+                {contentElements}
             </div>}
             {!props.username && <div className='mbb-content'>
-                <Route exact path='/' component={Home} />
+                <Route exact path='/' component={HomeContent} />
             </div>}
         </div>
     </div>
-);
+};

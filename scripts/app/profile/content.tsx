@@ -1,5 +1,5 @@
 import * as React from "react";
 
 export default () => (
-    <span>Document</span>
+    <div>BASE: User Profile</div>
 );
