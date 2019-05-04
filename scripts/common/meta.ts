@@ -1,5 +1,3 @@
-export const META: IMeta = (<any>window).META;
-
 export interface IMeta {
     url: string;
     name: string;
@@ -19,4 +17,8 @@ export interface IMetaModuleItem {
     path: string;
     code: string;
     name: string;
+}
+
+export function META(): IMeta {
+    return (<any>window).META;
 }

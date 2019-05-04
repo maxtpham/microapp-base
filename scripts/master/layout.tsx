@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink, withRouter } from 'react-router-dom'
-import { Image, Container, Menu, Divider, Grid, Form, Table, Checkbox, Button, Icon, Sidebar, Segment, Header, Responsive, MenuItemProps, Popup, Dropdown } from 'semantic-ui-react';
+import { Image, Container, Menu, Divider, Grid, Form, Table, Checkbox, Button, Icon, Sidebar, Segment, Header, Responsive, MenuItemProps, Popup, Dropdown, Item } from 'semantic-ui-react';
 
 import * as auth from '../common/auth';
 
@@ -8,6 +8,7 @@ import HomeHeader from "../home/header";
 import HomeContent from "../home/content";
 import ProfileHeader from "../profile/header";
 import ProfileContent from "../profile/content";
+import { META } from '../common/meta';
 
 export interface IMasterLayoutProps {
     collapsed?: boolean;
@@ -61,29 +62,17 @@ export default (props: IMasterLayoutProps) => {
         <div className='mbb-body'>
             {!!props.username && <div className='mbb-menu'>
                 <Menu size='massive' inverted secondary vertical fluid>
-                    <Menu.Item>
-                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 1</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#1</span></Menu.Header>
-                        {navbarElements}
+                {Object.getOwnPropertyNames(META().modules).map(moduleCode => (
+                    <Menu.Item key={moduleCode}>
+                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = META().modules[moduleCode].url}>{META().modules[moduleCode].name}</span><span className='mbb-menu-header2' onClick={() => location.href = META().modules[moduleCode].url}>{META().modules[moduleCode].name}</span></Menu.Header>
+                        {moduleCode === META().current && navbarElements}
+                        {moduleCode !== META().current && <Menu.Menu>
+                            {Object.getOwnPropertyNames(META().modules[moduleCode].items).map(itemCode => (
+                                <Menu.Item key={itemCode} link href={META().modules[moduleCode].url + META().modules[moduleCode].items[itemCode].path}><span className='mbb-menu-item1'><Icon name='weibo'/>{META().modules[moduleCode].items[itemCode].name}</span><span className='mbb-menu-item2'><Popup trigger={<Icon name='weibo'/>} content={META().modules[moduleCode].items[itemCode].name} position='right center' inverted/></span></Menu.Item>
+                            ))}
+                        </Menu.Menu>}
                     </Menu.Item>
-                    <Menu.Item>
-                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 2</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#2</span></Menu.Header>
-                        <Menu.Menu>
-                            <Menu.Item link href='http://localhost:3002/bin/dev/item1'><span className='mbb-menu-item1'><Icon name='weibo'/>Item 1</span><span className='mbb-menu-item2'><Popup trigger={<Icon name='weibo'/>} content='Item1' position='right center' inverted/></span></Menu.Item>
-                            <Menu.Item link href='http://localhost:3002/bin/dev/item2'><span className='mbb-menu-item1'><Icon name='whatsapp'/>Item 2</span><span className='mbb-menu-item2'><Popup trigger={<Icon name='whatsapp'/>} content='Item2' position='right center' inverted/></span></Menu.Item>
-                        </Menu.Menu>
-                    </Menu.Item>
-                    <Menu.Item>
-                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 3</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#3</span></Menu.Header>
-                    </Menu.Item>
-                    <Menu.Item>
-                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 4</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#4</span></Menu.Header>
-                    </Menu.Item>
-                    <Menu.Item>
-                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 5</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#5</span></Menu.Header>
-                    </Menu.Item>
-                    <Menu.Item>
-                        <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 6</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#6</span></Menu.Header>
-                    </Menu.Item>
+                ))}
                 </Menu>
             </div>}
             {!!props.username && <div className='mbb-content'>
