@@ -10,9 +10,10 @@ import { config } from "./config";
 import { IMeta } from "./common/meta";
 
 // Do not use react rendering code here, this will lead to index.ts will load all the react classes (from import/requires) before this request.post code run
-export async function startup(masterLayout?: React.ComponentClass<IMasterLayoutProps> | React.FunctionComponent<IMasterLayoutProps>): Promise<void> {
+export async function startup(currentModule:string, masterLayout?: React.ComponentClass<IMasterLayoutProps> | React.FunctionComponent<IMasterLayoutProps>): Promise<void> {
     try {
         await loadjs([config.services.base + '/meta.js']);
+        ((window as any).META as IMeta).current = currentModule;
 
         const modules = ((window as any).META as IMeta).modules;
         try {
