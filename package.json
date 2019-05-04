@@ -1,0 +1,23 @@
+{
+  "name": "@microapp/module1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "files": [
+    "bin/prd",
+    "*.sh"
+  ],
+  "scripts": {
+    "start": "start http://localhost:3000/bin/dev/ && http-server ./ -p 3000\"",
+    "start:prd": "start http://localhost:3000 && http-server ./bin/prd/ -p 3000\""
+  },
+  "keywords": [],
+  "author": "thanhptr",
+  "license": "UNLICENSED",
+  "repository": {
+    "url": "https://github.com/thanhptr/microapp-base.git"
+  },
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}

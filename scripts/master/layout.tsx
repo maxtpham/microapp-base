@@ -16,13 +16,13 @@ export interface IMasterLayoutProps {
     children?: React.ReactNode | React.ReactNode[];
 }
 
-export const MasterLayoutMenu = (props: {} | { children?: React.ReactNode }) => (props as any).children;
+export const MasterLayoutNavbar = (props: {} | { children?: React.ReactNode }) => (props as any).children;
 export const MasterLayoutHeader = (props: {} | { children?: React.ReactNode }) => (props as any).children;
 export const MasterLayoutContent = (props: {} | { children?: React.ReactNode }) => (props as any).children;
 
 export default (props: IMasterLayoutProps) => {
     const elements: React.ReactNode[] = typeof(props.children) === 'undefined' ? [] : Array.isArray(props.children) ? props.children : [props.children];
-    const menuElements = elements.filter((e: React.ReactElement<any>) => e.type === MasterLayoutMenu);
+    const navbarElements = elements.filter((e: React.ReactElement<any>) => e.type === MasterLayoutNavbar);
     const headerElements = elements.filter((e: React.ReactElement<any>) => e.type === MasterLayoutHeader);
     const contentElements = elements.filter((e: React.ReactElement<any>) => e.type === MasterLayoutContent);
 
@@ -63,7 +63,7 @@ export default (props: IMasterLayoutProps) => {
                 <Menu size='massive' inverted secondary vertical fluid>
                     <Menu.Item>
                         <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 1</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#1</span></Menu.Header>
-                        {menuElements}
+                        {navbarElements}
                     </Menu.Item>
                     <Menu.Item>
                         <Menu.Header><span className='mbb-menu-header1' onClick={() => location.href = '/'}>Module 2</span><span className='mbb-menu-header2' onClick={() => location.href = '/'}>#2</span></Menu.Header>
