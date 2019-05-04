@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { createReducer } from "../../common/utils";
+import { createReducer } from "../common/utils";
 import * as types from "./types";
 
 export default createReducer<types.IMasterStateSession>({})({

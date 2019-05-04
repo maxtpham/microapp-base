@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink, withRouter } from 'react-router-dom'
 
-require('../../../styles/global.css');
-import {IAppCss as appcss} from '../../../../styles/app.css';
+require('../../styles/global.css');
+import {IAppCss as appcss} from '../../../styles/app.css';
 
 import { connect } from 'react-redux';
-const styles: appcss = require('../../../../styles/app.css');
+const styles: appcss = require('../../../styles/app.css');
 
 import { IMasterState, IMasterStateSession } from './types';
 import * as actions from "./actions";

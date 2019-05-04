@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 
-export const TOGGLE = ".master/TOGGLE";
+export const TOGGLE = "master/TOGGLE";
 
 export interface IMasterStateSession {
     collapsed?: boolean;

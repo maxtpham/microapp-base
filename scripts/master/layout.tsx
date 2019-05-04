@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink, withRouter } from 'react-router-dom'
 import { Image, Container, Menu, Divider, Grid, Form, Table, Checkbox, Button, Icon, Sidebar, Segment, Header, Responsive, MenuItemProps, Popup, Dropdown } from 'semantic-ui-react';
 
-import * as auth from '../../common/auth';
+import * as auth from '../common/auth';
 
 import HomeHeader from "../home/header";
 import HomeContent from "../home/content";
