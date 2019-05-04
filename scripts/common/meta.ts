@@ -1,3 +1,5 @@
+export const META: IMeta = (<any>window).META;
+
 export interface IMeta {
     url: string;
     name: string;
