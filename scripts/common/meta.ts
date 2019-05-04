@@ -6,11 +6,13 @@ export interface IMeta {
 
 export interface IMetaModule {
     url: string;
+    code: string;
     name: string;
     items: { [module: string]: IMetaModuleItem };
 }
 
 export interface IMetaModuleItem {
     path: string;
+    code: string;
     name: string;
 }
